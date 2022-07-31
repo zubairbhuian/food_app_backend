@@ -1,6 +1,7 @@
 const express= require('express')
 const cors=require('cors')
 const userRouter=require('./routes/user.route')
+const populerfoodRouter=require('./routes/populerfood.route')
 
 const app =express()
 
@@ -10,6 +11,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use("/api/users",userRouter)
 
+
 // api/users:GET
 // api/users/:id:GET
 // api/users:POST
@@ -18,6 +20,9 @@ app.use("/api/users",userRouter)
 
 app.get('/',(req,res)=>{
   res.sendFile(__dirname+'/./views/index.html')
+})
+app.get('/api/food/populer',(req,res)=>{
+  res.sendFile(__dirname+'/./jsons/populer_food.json')
 })
 //  route not found
 app.use((req,res,next)=>{
