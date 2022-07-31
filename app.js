@@ -19,11 +19,11 @@ app.get('/',(req,res)=>{
   res.sendFile(__dirname+'/./janina.json')
 })
 //  route not found
-app.use((req,res,next)=>{
-    res.status(404).json({
-     message:'rout not found'
-    })
-  })
+// app.use((req,res,next)=>{
+//     res.status(404).json({
+//      message:'rout not found'
+//     })
+//   })
 //  Server err
   app.use((err,req,res,next)=>{
     res.status(500).json({
