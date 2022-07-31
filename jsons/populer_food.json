@@ -1,8 +1,5 @@
-{
-    "total_size": 6,
-    "type_id": 2,
-    "offset": 0,
-    "products": [
+[
+
       {
         "id": 1,
         "name": "Nutritious fruit meal in china",
@@ -111,5 +108,5 @@
         "updated_at": "2022-01-21 10:28:04",
         "type_id": 2
       }
-    ]
-  }
+    
+]
