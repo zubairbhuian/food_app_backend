@@ -21,8 +21,13 @@ app.use("/api/users",userRouter)
 app.get('/',(req,res)=>{
   res.sendFile(__dirname+'/./views/index.html')
 })
+// Populer food
 app.get('/api/food/populer',(req,res)=>{
   res.sendFile(__dirname+'/./jsons/populer_food.json')
+})
+// Recomended food
+app.get('/api/food/recomended',(req,res)=>{
+  res.sendFile(__dirname+'/./jsons/recomended_food.json')
 })
 //  route not found
 app.use((req,res,next)=>{
