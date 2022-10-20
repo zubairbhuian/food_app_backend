@@ -29,6 +29,11 @@ app.get('/api/food/populer',(req,res)=>{
 app.get('/api/food/recomended',(req,res)=>{
   res.sendFile(__dirname+'/./jsons/recomended_food.json')
 })
+// learnQuran
+app.get('/download/learnquran',(req,res)=>{
+  res.download('./doc/anc.text')
+})
+
 //  route not found
 app.use((req,res,next)=>{
     res.status(404).json({
