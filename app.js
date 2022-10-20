@@ -31,7 +31,7 @@ app.get('/api/food/recomended',(req,res)=>{
 })
 // learnQuran
 app.get('/download/learnquran',(req,res)=>{
-  res.download('./doc/anc.text')
+  res.download('./doc/app-release.apk')
 })
 
 //  route not found
