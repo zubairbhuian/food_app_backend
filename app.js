@@ -28,10 +28,10 @@ app.get('/api/food/populer',(req,res)=>{
 // Recomended food
 app.get('/api/food/recomended',(req,res)=>{
   res.sendFile(__dirname+'/./jsons/recomended_food.json')
-})
+}) 
 // learnQuran
 app.get('/download/learnquran',(req,res)=>{
-  res.download('./doc/app-release.apk')
+  res.download('./doc/LearnQuran.apk')
 })
 
 //  route not found
