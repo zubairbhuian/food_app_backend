@@ -12,7 +12,7 @@ app.get('/populerfood', (req, res) => {
   res.sendFile(__dirname + '/jsons/populer_food.json')
 });
 app.get('/recommendatfood', (req, res) => {
-  res.sendFile(__dirname + '/jsons/populer_food.json')
+  res.sendFile(__dirname + '/jsons/recomended_food.json')
 });
 
 app.get('/download/hospital', (req, res) => {
