@@ -1,0 +1,452 @@
+//media queries mixins
+$bhuian-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+@function breakpoint-next(
+  $name,
+  $bhuian-breakpoints: $bhuian-breakpoints,
+  $breakpoint-names: map-keys($bhuian-breakpoints)
+) {
+  $n: index($breakpoint-names, $name);
+  @if not $n {
+    @error "breakpoint `#{$name}` not found in `#{$bhuian-breakpoints}`";
+  }
+  @return if(
+    $n < length($breakpoint-names),
+    nth($breakpoint-names, $n + 1),
+    null
+  );
+}
+@function breakpoint-min($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $min: map-get($bhuian-breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+@function breakpoint-max($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $max: map-get($bhuian-breakpoints, $name);
+  @return if($max and $max > 0, $max - 0.02, null);
+}
+@function breakpoint-infix($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  @return if(breakpoint-min($name, $bhuian-breakpoints) == null, "", "-#{$name}");
+}
+@mixin media-breakpoint-up($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $min: breakpoint-min($name, $bhuian-breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+@mixin media-breakpoint-down($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $max: breakpoint-max($name, $bhuian-breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+@mixin media-breakpoint-between($lower, $upper, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $min: breakpoint-min($lower, $bhuian-breakpoints);
+  $max: breakpoint-max($upper, $bhuian-breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($lower, $bhuian-breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($upper, $bhuian-breakpoints) {
+      @content;
+    }
+  }
+}
+@mixin media-breakpoint-only($name, $bhuian-breakpoints: $bhuian-breakpoints) {
+  $min: breakpoint-min($name, $bhuian-breakpoints);
+  $next: breakpoint-next($name, $bhuian-breakpoints);
+  $max: breakpoint-max($next, $bhuian-breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include media-breakpoint-up($name, $bhuian-breakpoints) {
+      @content;
+    }
+  } @else if $min == null {
+    @include media-breakpoint-down($next, $bhuian-breakpoints) {
+      @content;
+    }
+  }
+}
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Almarai:wght@300;400&display=swap");
+:root {
+  // main color
+  --primary-color: #4770e5;
+  --secondary-color: #3aafc3;
+  --success-color: #27ae60;
+  --danger-color: #eb5757;
+  --warning-color: #e2b93b;
+  --info-color: #2f80ed;
+  --light-color: #e5f4f7;
+  --dark-color: #001233;
+  // gray-color
+  --gray-100: #000000;
+  --gray-200: #5c677d;
+  --gray-300: #7d8597;
+  --gray-400: #979dac;
+  --gray-500: #c5c8d0;
+  --gray-600: #e5e6e9;
+  --gray-700: #fafafa;
+  --white-color: #ffffff;
+  --body-color: #ffffff;
+  --body-font: "Almarai", sans-serif;
+  --heading-font: "Alata", sans-serif;
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --bold: 600;
+  // fontSize
+  --normal-font-size: 15px;
+  --small-font-size: 14px;
+  --smaller-font-size: 13px;
+  @media screen and (min-width: 992px) {
+    --normal-font-size: 16px;
+    --small-font-size: 15px;
+    --smaller-font-size: 14px;
+  }
+}
+
+// selection
+*::selection {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+// custrom Scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--white-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.625em;
+  color: #767676;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: none;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: 0;
+}
+
+/* 1.2 Typography */
+
+h1,
+.h1 {
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 5.725rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+}
+
+h2,
+.h2 {
+  position: relative;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2.7rem;
+  line-height: 1.2;
+  color: #000;
+  margin: 2rem 0;
+}
+
+h3,
+.h3 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.925rem;
+  line-height: 1.25;
+  color: #000;
+  margin: 1.5rem 0;
+}
+
+h4,
+.h4 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.525rem;
+  line-height: 1.2;
+  color: #000;
+  margin: 1.5rem 0;
+}
+
+h5,
+.h5 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  color: #000;
+  margin: 1.2rem 0;
+}
+
+h6,
+.h6 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  color: #000;
+  margin: 1rem 0;
+  text-transform: uppercase;
+}
+
+h1 a,
+.h1 a,
+h2 a,
+.h2 a,
+h3 a,
+.h3 a,
+h4 a,
+.h4 a,
+h5 a,
+.h5 a,
+h6 a,
+.h6 a {
+  color: inherit;
+}
+
+h1 a:hover,
+.h1 a:hover,
+h2 a:hover,
+.h2 a:hover,
+h3 a:hover,
+.h3 a:hover,
+h4 a:hover,
+.h4 a:hover,
+h5 a:hover,
+.h5 a:hover,
+h6 a:hover,
+.h6 a:hover {
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  color: #eb9532;
+  -webkit-transition: color 0.3s ease-out;
+  -o-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+}
+
+a:hover,
+a:focus {
+  color: #eb9532;
+  outline: none;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+// ++++++++ Main scss +++++
+.df{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0769c54d;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.nav-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(117, 117, 117);
+    .nav-items{
+        justify-content: end;
+        display: flex;
+        padding-right: 200px;
+
+        @include media-breakpoint-down(lg) {
+            justify-content: center;
+            padding-right:0;
+        }
+        
+        .nav-item{
+            padding: 0 15px;
+           .link{
+            text-decoration: none;
+          
+            position: relative;
+            text-align: center;
+            display: flex;
+           padding: 0 10px;
+            justify-content: center;
+            width: 100%;
+            &::before{
+                content: "";
+                position: absolute;
+                height: 3px;
+                width: 0;
+                background-color: red;
+                bottom: 0; 
+                transition: all .3s ease-in-out;
+
+            }
+            &:hover{
+                &::before{
+                    background-color: rgb(255, 253, 253);
+                    width: 100%;
+                }
+            }
+            
+           }
+        }
+    }
+}
+.my-api-service{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    border-radius:12px;
+    background-color: rgba(255, 0, 0, 0.432);
+    width: 60%;
+    @include media-breakpoint-down(md) {
+        width: 100%;
+    }
+    &.copy-api{
+        background: rgb(219, 226, 217);
+
+        .api-list{
+            padding: 15px;
+        }
+        .hear{
+           display: flex;
+           justify-content: space-between;
+            h3{
+                padding: 0;
+                margin: 0;
+            }
+            .copy-btn{
+                background: rgb(212, 212, 212);
+                border-radius: 4px;
+                border: 1px solid rgb(0, 0, 0);
+                width: 35px;
+                height: 35px;
+                align-items: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                .bi-check-lg{
+                    display: none;
+                }
+                &.copyed{
+                    background: rgb(193, 255, 193);
+                    border: 1px solid rgb(14, 172, 2);
+                    .bi-clipboard{
+                        display: none;
+                    }
+                    .bi-check-lg{
+                        display: block;
+                    }
+                    svg{
+                        color:  rgb(14, 172, 2);
+                    }
+                }
+            }
+        }
+        .copy-path{
+            -webkit-box-shadow: inset 34px 22px 71px -6px rgba(0,0,0,0.2);
+            -moz-box-shadow: inset 34px 22px 71px -6px rgba(0,0,0,0.2);
+            box-shadow: inset 34px 22px 71px -6px rgba(0, 0, 0, 0.164);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: text;
+        }
+        .dis{
+            padding-top: 5px;
+        }
+    }
+    .api-list{
+        padding: 40px;
+        border-radius: 5px;
+        li{
+            text-align: center;
+            padding-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-basis: 723px;
+            a{
+                padding: 10px 20px;
+                text-decoration:  none;
+                color: #000;
+                font-size:30px ;
+                line-height: 49px;
+                border-radius:8px;
+                background: rgba(255, 0, 0, 0.534);
+                transition: all .3s ease-in-out;
+                &:hover{
+                    background: red;
+                }
+            }
+        }
+    }
+
+}
