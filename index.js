@@ -59,6 +59,20 @@ app.get('/apps/todoapp/download', (req, res) => {
     }
   });
 });
+//  Todo app app
+app.get('/apps/cv/download', (req, res) => {
+  const filePath = __dirname + "/doc/zubair'sCV.pdf";
+  const fileName = "zubair'sCV.pdf";
+
+  // Use res.download() to download the file
+  res.download(filePath, fileName, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('File downloaded successfully');
+    }
+  });
+});
 
 
 
