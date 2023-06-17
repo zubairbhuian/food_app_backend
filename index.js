@@ -58,6 +58,21 @@ app.get('apps/hospital/download', (req, res) => {
   });
 });
 
+//  Todo app app
+app.get('apps/todoapp/download', (req, res) => {
+  const filePath = __dirname + '/doc/TodoApp.apk';
+  const fileName = 'TodoApp.apk';
+
+  // Use res.download() to download the file
+  res.download(filePath, fileName, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('File downloaded successfully');
+    }
+  });
+});
+
 
 
 // ! ================ Redirec Route =============
