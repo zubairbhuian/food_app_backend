@@ -29,22 +29,9 @@ app.get('/recommendatfood', (req, res) => {
 
 
 // ! ================ App Download Route =============
-// Food app
-app.get('apps/food-app/download', (req, res) => {
-  const filePath = __dirname + '/doc/LearnQuran.apk';
-  const fileName = 'LearnQuran.apk';
 
-  // Use res.download() to download the file
-  res.download(filePath, fileName, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('File downloaded successfully');
-    }
-  });
-});
 // hospital app
-app.get('apps/hospital/download', (req, res) => {
+app.get('/apps/hospital/download', (req, res) => {
   const filePath = __dirname + '/doc/LearnQuran.apk';
   const fileName = 'LearnQuran.apk';
 
@@ -59,7 +46,7 @@ app.get('apps/hospital/download', (req, res) => {
 });
 
 //  Todo app app
-app.get('apps/todoapp/download', (req, res) => {
+app.get('/apps/todoapp/download', (req, res) => {
   const filePath = __dirname + '/doc/TodoApp.apk';
   const fileName = 'TodoApp.apk';
 
