@@ -60,7 +60,7 @@ app.get('/apps/todoapp/download', (req, res) => {
   });
 });
 //  Todo app app
-app.get('/apps/cv/download', (req, res) => {
+app.get('/cv/download', (req, res) => {
   const filePath = __dirname + "/doc/zubair'sCV.pdf";
   const fileName = "zubair'sCV.pdf";
 
