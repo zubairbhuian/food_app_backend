@@ -340,6 +340,7 @@ a:focus {
            padding: 0 10px;
             justify-content: center;
             width: 100%;
+            color: #ffff;
             &::before{
                 content: "";
                 position: absolute;
@@ -436,7 +437,7 @@ a:focus {
             a{
                 padding: 10px 20px;
                 text-decoration:  none;
-                color: #000;
+                color: #ffffff !important;
                 font-size:30px ;
                 line-height: 49px;
                 border-radius:8px;
