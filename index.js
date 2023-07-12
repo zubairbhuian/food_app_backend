@@ -59,6 +59,20 @@ app.get('/apps/todoapp/download', (req, res) => {
     }
   });
 });
+//  bazigaar app app
+app.get('/apps/bazigaar/download', (req, res) => {
+  const filePath = __dirname + '/doc/bazigaar.apk';
+  const fileName = 'bazigaar.apk';
+
+  // Use res.download() to download the file
+  res.download(filePath, fileName, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('File downloaded successfully');
+    }
+  });
+});
 //  Todo app app
 app.get('/cv/download', (req, res) => {
   const filePath = __dirname + "/doc/zubair'sCV.pdf";
