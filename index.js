@@ -30,6 +30,11 @@ app.get('/recommendatfood', (req, res) => {
 
 // ! ================ App Download Route =============
 
+app.get('/zubair',(req,res)=>{
+  res.send("Zubair")
+
+})
+
 // hospital app
 app.get('/apps/hospital/download', (req, res) => {
   const filePath = __dirname + '/doc/LearnQuran.apk';
